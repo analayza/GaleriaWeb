@@ -26,3 +26,4 @@ model Photo{
   url     String
   dateUpload DateTime @default(now())
 }
+
