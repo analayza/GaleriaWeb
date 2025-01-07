@@ -7,14 +7,14 @@ const prisma = new PrismaClient();
 const SECRET_KEY = env("SECRET_KEY");
 const EXPIRATION_TIME = '1h';
 
-async function register(email, senha, nome) {
-    const hashedPassword = await bcrypt.hash(senha, 10);
+async function register(email, password, name) {
+    const hashedPassword = await bcrypt.hash(password, 10);
   
     const user = await prisma.user.create({
       data: {
         email,
-        senha: hashedPassword,
-        nome
+        password: hashedPassword,
+        name
       }
     });
   
@@ -25,7 +25,7 @@ async function register(email, senha, nome) {
 
 
 
-async function login(email, senha) {
+async function login(email, password) {
     const user = await prisma.user.findUnique({
       where: { email }
     });
@@ -34,7 +34,7 @@ async function login(email, senha) {
       throw new Error('Usuário não encontrado!');
     }
   
-    const isPasswordValid = await bcrypt.compare(senha, user.senha);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       throw new Error('Senha inválida!');
     }
