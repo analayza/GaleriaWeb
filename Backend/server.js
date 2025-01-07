@@ -1,6 +1,6 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
-import {register, login} from './auth/authService'
+import {register, login} from './auth/authService.js';
 
 const prisma = new PrismaClient();
 
@@ -27,5 +27,8 @@ app.post('/auth/login', async (req, res) => {
         res.status(400).json({error: error.message});
     }
 });
+
+
+
 
 app.listen(3000)

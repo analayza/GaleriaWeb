@@ -1,10 +1,11 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import {PrismaClient} from "@prisma/client";
+import dotenv from "dotenv";
 
 const prisma = new PrismaClient();
 
-const SECRET_KEY = env("SECRET_KEY");
+const SECRET_KEY = process.env.SECRET_KEY;
 const EXPIRATION_TIME = '1h';
 
 async function register(email, password, name) {
@@ -56,4 +57,4 @@ function verifyToken(token) {
     }
   }
   
-  module.exports = { register, login, verifyToken };
+export { register, login, verifyToken };
