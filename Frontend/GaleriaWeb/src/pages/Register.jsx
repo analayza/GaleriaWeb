@@ -1,7 +1,7 @@
-import { Formik, Form, useField } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import TextInput from '../components/TextInput';
-import styled from 'styled-components';
+import serviceRegister from '../service/Register.js';
 
 export default function Register() {
     return (
@@ -31,8 +31,9 @@ export default function Register() {
                         .required("Obrigatório")
                 })}
 
-                onSubmit={async () => {
-
+                onSubmit={async (values, {setSubmitting}) => {
+                    await serviceRegister(values.email, values.password, values.name);
+                    setSubmitting(false);
                 }}
             >
 
