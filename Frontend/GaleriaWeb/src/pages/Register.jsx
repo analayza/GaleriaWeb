@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import TextInput from '../components/TextInput';
 import serviceRegister from '../service/Register.js';
 
+
 export default function Register() {
     return (
         <>
@@ -39,19 +40,16 @@ export default function Register() {
 
                 <Form>
                     <TextInput
-                        label="Nome"
                         name="name"
                         type="text"
                         placeholder="Digite seu nome"
                     />
                     <TextInput
-                        label="Email"
                         name="email"
                         type="email"
                         placeholder="Digite seu email"
                     />
                     <TextInput
-                        label="Senha"
                         name="password"
                         type="password"
                         placeholder="Digite sua senha"

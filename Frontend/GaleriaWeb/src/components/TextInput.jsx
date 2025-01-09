@@ -1,15 +1,14 @@
 import {Formik, Form, useField} from 'formik';
-import '../css/TextInput.css';
+import {Input, StyledErrorMessage} from '../style/TextInput.js';
 
-export default function TextInput({label, ...props}){
+export default function TextInput({ ...props}){
     const [field, meta] = useField(props);
 
     return(
         <>
-            <label htmlFor={props.id || props.name}>{label}</label>
-            <input className='text-input' {...field} {...props}></input>
+            <Input {...field} {...props}></Input>
             {meta.touched && meta.error ? (
-                <div className='error'>{meta.error}</div>
+                <StyledErrorMessage>{meta.error}</StyledErrorMessage>
             ) : null}
         </>
     )
