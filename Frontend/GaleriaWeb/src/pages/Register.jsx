@@ -2,12 +2,16 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import TextInput from '../components/TextInput';
 import serviceRegister from '../service/Register.js';
+import * as Styles from '../style/Entry.js';
 
 
 export default function Register() {
     return (
         <>
-            <h1>Cadastro</h1>
+            <Styles.GlobalStyles></Styles.GlobalStyles>
+
+            <h1 style={{ marginBottom: '40px' }}>Cadastro</h1>
+
             <Formik initialValues={{
                 email: "",
                 password: "",
@@ -54,7 +58,7 @@ export default function Register() {
                         type="password"
                         placeholder="Digite sua senha"
                     />
-                    <button type="submit">Cadastrar</button>
+                    <Styles.ButtonEntry type="submit">Cadastrar</Styles.ButtonEntry>
                 </Form>
             </Formik>
         </>
