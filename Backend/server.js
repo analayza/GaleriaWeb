@@ -1,6 +1,7 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 import {register, login} from './auth/authService.js';
+import {upload} from './multerConfig/multerConfig.js';
 import cors from 'cors';
 
 const prisma = new PrismaClient();
@@ -32,6 +33,35 @@ app.post('/auth/login', async (req, res) => {
     }catch(error){
         res.status(400).json({error: error.message});
     }
+});
+
+
+app.post('/photos/upload',upload.single("photo"), async (req, res) => {
+    try {
+        const { userId } = req.body;
+    
+        if (!req.file) {
+          return res.status(400).json({ message: "Nenhum arquivo foi enviado!" });
+        }
+    
+        const fileBuffer = req.file.buffer;
+    
+        const base64Data = fileBuffer.toString("base64");
+    
+        const fileUrl = `data:${req.file.mimetype};base64,${base64Data}`;
+    
+        const photo = await prisma.photo.create({
+          data: {
+            userId: userId,
+            url: fileUrl,
+          },
+        });
+    
+        res.status(201).json({ message: "Foto enviada com sucesso!", photo });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Erro ao fazer upload da foto." });
+      }
 });
 
 
