@@ -3,9 +3,13 @@ import * as Yup from 'yup';
 import TextInput from '../components/TextInput';
 import serviceRegister from '../service/Register.js';
 import * as Styles from '../style/Entry.js';
-
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+
+    
+    const navigate = useNavigate();
+    
     return (
         <>
             <Styles.GlobalStyles></Styles.GlobalStyles>
@@ -39,6 +43,7 @@ export default function Register() {
                 onSubmit={async (values, {setSubmitting}) => {
                     await serviceRegister(values.email, values.password, values.name);
                     setSubmitting(false);
+                    return navigate("/");
                 }}
             >
 

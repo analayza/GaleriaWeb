@@ -1,7 +1,7 @@
-export default function Photos(){
-    return(
+export default function Photos() {
+    return (
         <>
-            <h1>Foi</h1>
+            <a href='/photos/upload'>Clique aqui para uploads de fotos </a>
         </>
     )
 }
