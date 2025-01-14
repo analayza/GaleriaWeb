@@ -32,9 +32,21 @@ export default function PhotosUpload() {
                         )
                 })}
                 onSubmit={async (values, { setSubmitting }) => {
-                    const resul = await servicePhotosUpload(values.userId, values.photo);
-                    console.log(resul)
-                    setSubmitting(false);
+                    // const resul = await servicePhotosUpload(values.userId, values.photo);
+                    // console.log(resul)
+                    // setSubmitting(false);
+                    const formData = new FormData();
+                    formData.append("userId", values.userId);
+                    formData.append("photo", values.photo);
+
+                    try {
+                        const resul = await servicePhotosUpload(formData); 
+                        console.log(resul);
+                    } catch (error) {
+                        console.error(error.message);
+                    } finally {
+                        setSubmitting(false);
+                    }
                 }}
             >
                 {({ setFieldValue }) => (

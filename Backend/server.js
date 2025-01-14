@@ -52,6 +52,7 @@ app.post('/photos/upload',upload.single("photo"), async (req, res) => {
     
         const photo = await prisma.photo.create({
           data: {
+            userId: userId,
             url: fileUrl,
           },
         });

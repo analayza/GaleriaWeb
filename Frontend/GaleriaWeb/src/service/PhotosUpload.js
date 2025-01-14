@@ -1,14 +1,8 @@
 import Api from '../service/Api.js';
 
-export default async function PhotosUpload (userId, photo){
+export default async function PhotosUpload (formData){
     try {
-        const response = await Api.post('/photos/upload', {
-            userId: userId,
-            photo: photo,
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
+        const response = await Api.post('/photos/upload', formData);
 
         return response.data; 
     } catch (error) {
