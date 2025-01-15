@@ -14,11 +14,11 @@ export default function PhotosUpload() {
             <GlobalStyles />
             <Formik
                 initialValues={{
-                    userId: "",
+                    //userId: "",
                     photo: null
                 }} validationSchema={Yup.object({
-                    userId: Yup.string()
-                        .required("O ID do usuário é Obrigatório"),
+                    // userId: Yup.string()
+                    //     .required("O ID do usuário é Obrigatório"),
                     photo: Yup.mixed()
                         .required("A foto é Obrigatória")
                         .test(
@@ -51,11 +51,11 @@ export default function PhotosUpload() {
             >
                 {({ setFieldValue }) => (
                     <Form>
-                    <TextInput
+                    {/* <TextInput
                         name="userId"
                         type="text"
                         placeholder="Digite o Id"
-                    />
+                    /> */}
                     <div>
                         <label htmlFor="photo">Selecione uma Foto</label>
                         <input
