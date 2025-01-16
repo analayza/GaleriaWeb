@@ -1,17 +1,21 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import servicePhotosUpload from "../service/PhotosUpload.js";
-import TextInput from '../components/TextInput';
-import { ButtonEntry, GlobalStyles } from '../style/Entry.js';
+import { GlobalStyles } from '../style/Entry.js';
+import {Div, LabelDiv, LabelDivButton, ButtonDiv} from '../style/PhotosUpload.js';
+import { useState } from 'react';
+import Menu from '../components/Menu.jsx';
 
 export default function PhotosUpload() {
 
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
+    const [fileName, setFileName] = useState("");
 
     return (
         <>
             <GlobalStyles />
+            <Menu/>
             <Formik
                 initialValues={{
                     //userId: "",
@@ -56,8 +60,8 @@ export default function PhotosUpload() {
                         type="text"
                         placeholder="Digite o Id"
                     /> */}
-                    <div>
-                        <label htmlFor="photo">Selecione uma Foto</label>
+                    <Div>
+                        <LabelDiv>Selecione uma Foto</LabelDiv>
                         <input
                             id="photo"
                             name="photo"
@@ -65,11 +69,17 @@ export default function PhotosUpload() {
                             accept="image/jpeg,image/jpg,image/png"
                             onChange={(event) => {
                                 const file = event.target.files[0];
+                                setFileName(file.name);
                                 setFieldValue("photo", file);
                             }}
+                            style={{display: 'none'}}
                         />
-                    </div>
-                    <ButtonEntry type="submit">Enviar</ButtonEntry>
+                        <LabelDivButton htmlFor='photo'>
+                            Escolher foto
+                        </LabelDivButton>
+                        {fileName && <p>Arquivo selecionado: {fileName}</p>}
+                    </Div>
+                    <ButtonDiv type="submit">Enviar</ButtonDiv>
                 </Form>
                 )}
                 

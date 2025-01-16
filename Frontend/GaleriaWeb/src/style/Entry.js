@@ -44,7 +44,7 @@ export const ButtonEntry = styled.button`
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-left: 25px;
+    margin-left: 30px;
     margin-top: 15px;
     padding-bottom: 40px;
 `;
