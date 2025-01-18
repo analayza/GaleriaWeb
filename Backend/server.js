@@ -67,6 +67,25 @@ app.post('/photos/upload', authMiddleware, upload.single("photo"), async (req, r
 });
 
 
+app.get('/photos', authMiddleware, async(req, res) => {
+  try{
+    const {userId} = req.user;
+    const photos = await prisma.photo.findMany({
+      where: {userId}
+    });
+
+    if(!photos.length){
+      res.status(400).json({message: "Você ainda não possui fotos. Faça algum upload."})
+    }
+
+    res.status(200).json({photos})
+  }catch(error){
+    console.error(error);
+    res.status(500).json({ message: "Erro ao buscar fotos." });
+  }
+});
+
+
 
 
 app.listen(3000)

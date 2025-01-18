@@ -14,7 +14,7 @@ export default function Register() {
         <>
             <Styles.GlobalStyles></Styles.GlobalStyles>
 
-            <h1 style={{ marginBottom: '40px' }}>Cadastro</h1>
+            <h1 style={{ marginBottom: '40px', color:'white' }}>Cadastro</h1>
 
             <Formik initialValues={{
                 email: "",
