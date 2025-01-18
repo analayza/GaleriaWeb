@@ -1,6 +1,5 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-//import { useNavigate } from "react-router-dom";
 import servicePhotosUpload from "../service/PhotosUpload.js";
 import { GlobalStyles } from '../style/Entry.js';
 import {Div, LabelDiv, LabelDivButton, ButtonDiv} from '../style/PhotosUpload.js';
@@ -9,7 +8,6 @@ import Menu from '../components/Menu.jsx';
 
 export default function PhotosUpload() {
 
-    //const navigate = useNavigate();
     const [fileName, setFileName] = useState("");
 
     return (
@@ -18,11 +16,8 @@ export default function PhotosUpload() {
             <Menu/>
             <Formik
                 initialValues={{
-                    //userId: "",
                     photo: null
                 }} validationSchema={Yup.object({
-                    // userId: Yup.string()
-                    //     .required("O ID do usuário é Obrigatório"),
                     photo: Yup.mixed()
                         .required("A foto é Obrigatória")
                         .test(
@@ -36,9 +31,6 @@ export default function PhotosUpload() {
                         )
                 })}
                 onSubmit={async (values, { setSubmitting }) => {
-                    // const resul = await servicePhotosUpload(values.userId, values.photo);
-                    // console.log(resul)
-                    // setSubmitting(false);
                     const formData = new FormData();
                     formData.append("userId", values.userId);
                     formData.append("photo", values.photo);
@@ -55,11 +47,6 @@ export default function PhotosUpload() {
             >
                 {({ setFieldValue }) => (
                     <Form>
-                    {/* <TextInput
-                        name="userId"
-                        type="text"
-                        placeholder="Digite o Id"
-                    /> */}
                     <Div>
                         <LabelDiv>Selecione uma Foto</LabelDiv>
                         <input
