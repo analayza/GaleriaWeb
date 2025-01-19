@@ -17,7 +17,7 @@ export default async function Photos(){
         if (error.resul) {
             throw new Error(error.resul.data.error);
         } else {
-            throw new Error("Erro no servidor. Tente novamente mais tarde.");
+            throw new Error("Erro: Você não possui fotos. Faça algum upload");
         }
     }
 }

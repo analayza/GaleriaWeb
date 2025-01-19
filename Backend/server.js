@@ -75,17 +75,27 @@ app.get('/photos', authMiddleware, async(req, res) => {
     });
 
     if(!photos.length){
-      res.status(400).json({message: "Você ainda não possui fotos. Faça algum upload."})
+      return res.status(400).json({message: "Você ainda não possui fotos. Faça algum upload."})
     }
 
-    res.status(200).json({photos})
+    return res.status(200).json({photos})
   }catch(error){
     console.error(error);
-    res.status(500).json({ message: "Erro ao buscar fotos." });
+    return res.status(500).json({ message: "Erro ao buscar fotos." });
   }
 });
 
-
-
+app.delete('/photos', authMiddleware, async(req, res) => {
+  try{
+    const {id} = req.body;
+    await prisma.photo.delete({
+      where: {id}
+    });
+    return res.status(200).json({menssage: "Foto deletada!"})
+  }catch(error){
+    console.error(error);
+    return res.status(500).json({ message: "Erro ao deletar foto." });
+  }
+});
 
 app.listen(3000)

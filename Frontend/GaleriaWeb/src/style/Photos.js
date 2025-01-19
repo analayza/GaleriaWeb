@@ -23,3 +23,21 @@ export const ImageGrid = styled.img`
     border-radius: 4px; 
     object-fit: cover;
 `;
+
+export const ButtonDelete = styled.button`
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  
+  &:hover {
+    color: red;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
