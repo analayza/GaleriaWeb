@@ -1,16 +1,16 @@
 import Menu from '../components/Menu.jsx';
 import servicePhotos from '../service/Photos.js';
 import { useEffect, useState } from 'react';
-import { GlobalStyles } from '../style/Entry.js';
+import { GlobalStyles } from '../style/GlobalStyle.js';
 import { PhotosGrid, ImageGrid, PhotoItem, ButtonDelete } from '../style/Photos.js';
 import servicePhotosDelete from '../service/PhotosDelete.js';
 import { FaTrash } from 'react-icons/fa';
+
 
 export default function Photos() {
     
     const [photos, setPhotos] = useState([]);
     const [error, setError] = useState('');
-    const [refresh, setRefresh] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -30,12 +30,12 @@ export default function Photos() {
         }
 
         fetchPhotos();
-    }, [refresh]);
+    }, []);
 
     const handleDelete = async (photoId) => {
         try {
             await servicePhotosDelete(photoId);
-            setRefresh(!refresh);
+            setPhotos(prevPhotos => prevPhotos.filter(photo => photo.id !== photoId));
         } catch (err) {
             setError(err.message);
         }
@@ -43,11 +43,11 @@ export default function Photos() {
 
     return (
         <>
-            <GlobalStyles />
+            <GlobalStyles/>
             <Menu />
             <div>
-                {loading? <p style={{marginLeft: '250px'}}>Carregando...</p> : null}
-                {error && <p style={{ color: 'white', marginLeft: '250px' }}>{error}</p>}
+                {loading? <p style={{marginLeft: '250px', color: 'black'}}>Carregando...</p> : null}
+                {error && <p style={{ color: 'black', marginLeft: '250px' }}>{error}</p>}
                 <PhotosGrid>
                     {photos.map((photo) => (
                         <PhotoItem key={photo.id}>

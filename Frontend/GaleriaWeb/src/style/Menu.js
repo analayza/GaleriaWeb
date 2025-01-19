@@ -7,7 +7,7 @@ export const SideNav = styled.nav`
     position: fixed; 
     top: 0;
     left: 0;
-    background-color: rgba(255, 255, 255, 0.5);
+    background: linear-gradient(180deg,rgb(255, 255, 255) -10%, rgba(182, 62, 126) 100%) !important;
     display: flex;
     flex-direction: column;
     padding: 20px;
