@@ -4,7 +4,7 @@ export const Input = styled.input`
     border: none;
     border-radius: 30px;
     height: 40px;
-    background-color: rgba(255, 255, 255, 0.06);;
+    background-color: rgba(196, 99, 151, 0.8);
     color: #fff;
     font-size: 16px;
     padding-left: 10px;
@@ -22,10 +22,12 @@ export const Input = styled.input`
 `;
 
 
-export const StyledErrorMessage = styled.div`
+export const StyledErrorMessageGlobal = styled.div`
     font-size: 16px;
-    color:rgb(253, 62, 14);
-    width: 110px;
+    color:rgb(0, 0, 0);
+    width: 100px;
     margin-top: 0.25rem;
-`;
+    white-space: nowrap;
+    margin-left: 10px;
 
+`;

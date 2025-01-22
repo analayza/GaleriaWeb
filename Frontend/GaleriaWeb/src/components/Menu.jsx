@@ -10,7 +10,7 @@ export default function Menu(){
                 </DivLogo>
                 <NavItem href="/photos">Fotos</NavItem>
                 <NavItem href="/photos/upload">Upload Fotos</NavItem>
-                <NavItem href="#services">Configurações</NavItem>
+                <NavItem href="/config">Configurações</NavItem>
             </SideNav>
         </>
     )
