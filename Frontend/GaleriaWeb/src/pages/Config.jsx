@@ -2,12 +2,19 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { GlobalStyles } from '../style/GlobalStyle.js';
 import Menu from '../components/Menu.jsx';
-import {LabelConfig, ContainerConfig, IconButton, InputWrapper } from '../style/Config.js';
+import { LabelConfig, ContainerConfig, IconButton, InputWrapper } from '../style/Config.js';
 import { ButtonEntry } from '../style/Entry.js';
 import { FaEdit } from 'react-icons/fa';
 import TextInputGlobal from '../components/TextInputGlobal.jsx';
+import serviceUpdate from '../service/UpdateUser.js';
 
 export default function Config() {
+
+    async function updateName(name) {
+        const resulName = await serviceUpdate(name);
+        return resulName;
+    }
+
     return (
         <>
             <GlobalStyles />
@@ -26,31 +33,25 @@ export default function Config() {
                         .matches(/^[A-Za-z\s]+$/, "Não pode conter apenas números")
                 })}
 
-                onSubmit={async (values, { setSubmitting }) => {
-                    await serviceRegister(values.email, values.password, values.name);
-                    setSubmitting(false);
-                    return navigate("/");
-                }}
+                
             >
+                {({ values }) => (
+                    <Form>
+                        <ContainerConfig>
+                            <LabelConfig htmlFor="">Nome</LabelConfig>
+                            <InputWrapper>
+                                <TextInputGlobal name="name" type="text" placeholder="Digite seu nome" /> <IconButton type="button" onClick={() => updateName(values.name)}><FaEdit size={25} color='black' />Editar</IconButton>
+                            </InputWrapper>
 
-                <Form>
-                    <ContainerConfig>
-                        <LabelConfig htmlFor="">Nome</LabelConfig>
-                        <InputWrapper>
-                            <TextInputGlobal name="name" type="text" placeholder="Digite seu nome"/> <IconButton><FaEdit size={25} color='black' />Editar</IconButton>
-                        </InputWrapper>
+                            <LabelConfig htmlFor="">Email</LabelConfig>
+                            <InputWrapper>
+                                <TextInputGlobal name="email" type="text" placeholder="Digite seu email" /> <IconButton><FaEdit size={25} color='black' />Editar</IconButton>
+                            </InputWrapper>
 
-                        <LabelConfig htmlFor="">Email</LabelConfig>
-                        <InputWrapper>
-                            <TextInputGlobal name="email" type="text" placeholder="Digite seu email"/> <IconButton><FaEdit size={25} color='black' />Editar</IconButton>
-                        </InputWrapper>
-
-                        <ButtonEntry onClick={() => window.location.href = '/config/updatepassword'}>Atualizar Senha</ButtonEntry>
-                    </ContainerConfig>
-
-
-                </Form>
-
+                            <ButtonEntry onClick={() => window.location.href = '/config/updatepassword'}>Atualizar Senha</ButtonEntry>
+                        </ContainerConfig>
+                    </Form>
+                )}
             </Formik>
         </>
     )

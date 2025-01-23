@@ -37,10 +37,9 @@ app.post('/auth/login', async (req, res) => {
 });
 
 
-app.post('/photos/upload', authMiddleware, upload.single("photo"), async (req, res) => { //add o auth
+app.post('/photos/upload', authMiddleware, upload.single("photo"), async (req, res) => { 
     try {
-        //const { userId } = req.user.id; //Mudei aqui 
-        const {userId} = req.user; //add
+        const {userId} = req.user; 
     
         if (!req.file) {
           return res.status(400).json({ message: "Nenhum arquivo foi enviado!" });
@@ -95,6 +94,23 @@ app.delete('/photos', authMiddleware, async(req, res) => {
   }catch(error){
     console.error(error);
     return res.status(500).json({ message: "Erro ao deletar foto." });
+  }
+});
+
+app.put('/updatename', authMiddleware, async(req, res) =>{
+  try{
+    const {userId} = req.user;
+    const {newName} = req.body;
+    await prisma.user.update({
+      data: {
+        name: newName,
+      },
+      where: {id: userId}
+    });
+    return res.status(200).json({menssage: "Nome Atualizado!"})
+  }catch(error){
+    console.error(error);
+    return res.status(500).json({ message: "Erro ao atualizar nome." });
   }
 });
 

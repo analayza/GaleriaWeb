@@ -1,0 +1,27 @@
+import Api from '../service/Api.js';
+
+export default async function UpdateName(newName) {
+    try {
+        const token = localStorage.getItem('token');
+        console.log("Token recuperado:", token);
+        
+        const response = await Api.put('/updatename',
+            {
+                newName: newName, 
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        return response.data;
+    } catch (error) {
+        if (error.response) {
+            throw new Error(error.response.data.error);
+        } else {
+            throw new Error("Erro no servidor. Tente novamente mais tarde.");
+        }
+    }
+}
