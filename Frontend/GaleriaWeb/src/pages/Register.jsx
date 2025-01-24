@@ -36,7 +36,7 @@ export default function Register() {
                     name: Yup.string()
                         .min(3, 'O nome deve conter no mínimo 3 caracteres')
                         .max(50, 'O nome deve conter no máximo 50 caracteres')
-                        .matches(/^[A-Za-z\s]+$/, "Não pode conter apenas números")
+                        .matches(/^[A-Za-z\s]+$/, "Não pode conter números")
                         .required("Obrigatório")
                 })}
 

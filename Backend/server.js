@@ -107,10 +107,28 @@ app.put('/updatename', authMiddleware, async(req, res) =>{
       },
       where: {id: userId}
     });
+    
     return res.status(200).json({menssage: "Nome Atualizado!"})
   }catch(error){
     console.error(error);
     return res.status(500).json({ message: "Erro ao atualizar nome." });
+  }
+});
+
+app.put('/updateemail', authMiddleware, async(req, res) =>{
+  try{
+    const {userId} = req.user;
+    const {newEmail} = req.body;
+    await prisma.user.update({
+      data:{
+        email: newEmail,
+      },
+      where: {id: userId}
+    });
+    return res.status(200).json({message: "Email Atualizado!"})
+  }catch(error){
+    console.error(error);
+    return res.status(500).json({ message: "Erro ao atualizar email." });
   }
 });
 

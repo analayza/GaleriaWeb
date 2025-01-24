@@ -6,14 +6,45 @@ import { LabelConfig, ContainerConfig, IconButton, InputWrapper } from '../style
 import { ButtonEntry } from '../style/Entry.js';
 import { FaEdit } from 'react-icons/fa';
 import TextInputGlobal from '../components/TextInputGlobal.jsx';
-import serviceUpdate from '../service/UpdateUser.js';
+import { UpdateName, UpdateEmail, UpdatePassword } from '../service/UpdateUser.js';
+import { useState, useEffect } from 'react';
 
 export default function Config() {
 
+    const [successMessage, setsuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
     async function updateName(name) {
-        const resulName = await serviceUpdate(name);
-        return resulName;
-    }
+        try {
+            const resulName = await UpdateName(name);
+            if (resulName) {
+                setsuccessMessage("Nome Atualizado com sucesso");
+            }
+        } catch (error) {
+            setErrorMessage('Nome inválido');
+        }
+    };
+
+    async function updateEmail(email) {
+        try {
+            const resulEmail = await UpdateEmail(email);
+            if (resulEmail) {
+                setsuccessMessage("Email Atualizado com sucesso");
+            }
+        }catch(error){
+            setErrorMessage('Email inválido');
+        }
+    };
+
+    useEffect(() => {
+        if (successMessage || errorMessage) {
+            const timer = setTimeout(() => {
+                setsuccessMessage("");
+                setErrorMessage("");
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [successMessage, errorMessage]);
 
     return (
         <>
@@ -30,10 +61,10 @@ export default function Config() {
                     name: Yup.string()
                         .min(3, 'O nome deve conter no mínimo 3 caracteres')
                         .max(50, 'O nome deve conter no máximo 50 caracteres')
-                        .matches(/^[A-Za-z\s]+$/, "Não pode conter apenas números")
+                        .matches(/^[A-Za-z\s]+$/, "Não pode conter números")
                 })}
 
-                
+
             >
                 {({ values }) => (
                     <Form>
@@ -45,10 +76,14 @@ export default function Config() {
 
                             <LabelConfig htmlFor="">Email</LabelConfig>
                             <InputWrapper>
-                                <TextInputGlobal name="email" type="text" placeholder="Digite seu email" /> <IconButton><FaEdit size={25} color='black' />Editar</IconButton>
+                                <TextInputGlobal name="email" type="email" placeholder="Digite seu email" /> <IconButton type="button" onClick={() => updateEmail(values.email)}><FaEdit size={25} color='black' />Editar</IconButton>
                             </InputWrapper>
 
                             <ButtonEntry onClick={() => window.location.href = '/config/updatepassword'}>Atualizar Senha</ButtonEntry>
+                            <div>
+                                {successMessage && <p style={{ color: "black", marginRight: '100px',  marginTop: '10px' }}>{successMessage}</p>}
+                                {errorMessage && <p style={{ color: "black", marginRight: '100px',  marginTop: '10px' }}>{errorMessage}</p>}
+                            </div>
                         </ContainerConfig>
                     </Form>
                 )}
