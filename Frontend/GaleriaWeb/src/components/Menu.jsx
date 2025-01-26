@@ -4,7 +4,6 @@ export default function Menu(){
 
     const logout = () => {
         localStorage.removeItem('token');
-        console.log('excluio')
     }
 
     return(

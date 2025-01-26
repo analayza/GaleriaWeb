@@ -1,7 +1,7 @@
 import {verifyToken} from "./authService.js"
 
 function authMiddleware(req, res, next){
-    const token = req.header('Authorization')?.replace('Bearer', '').trim(); //trim
+    const token = req.header('Authorization')?.replace('Bearer', '').trim(); 
 
     if(!token){
         return res.status(401).json({error: "Token não fornecido!"});
