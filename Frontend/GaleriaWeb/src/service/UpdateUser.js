@@ -10,10 +10,10 @@ async function UpdateName(newName) {
         if (!newName || newName.length < 3 || newName.length > 50 || !nameRegex.test(newName)) {
             throw new Error('Nome inválido!');
         }
-        
+
         const response = await Api.put('/updatename',
             {
-                newName: newName, 
+                newName: newName,
             },
             {
                 headers: {
@@ -33,7 +33,7 @@ async function UpdateName(newName) {
 };
 
 async function UpdateEmail(newEmail) {
-    try{    
+    try {
         const token = localStorage.getItem('token');
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -43,7 +43,7 @@ async function UpdateEmail(newEmail) {
 
         const response = await Api.put('/updateemail',
             {
-                newEmail: newEmail, 
+                newEmail: newEmail,
             },
             {
                 headers: {
@@ -52,7 +52,7 @@ async function UpdateEmail(newEmail) {
             }
         );
         return response.data;
-    }catch (error) {
+    } catch (error) {
         if (error.response) {
             throw new Error(error.response.data.error);
         } else {
@@ -61,8 +61,27 @@ async function UpdateEmail(newEmail) {
     }
 };
 
-async function UpdatePassword(params) {
-    
-}
+async function UpdatePassword(oldPassword, newPassword) {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await Api.put('/updatepassword', {
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+        },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        )
+        return response.data;
+    } catch (error) {
+        if (error.response) {
+            throw new Error(error.response.data.error);
+        } else {
+            throw new Error("Erro no servidor. Tente novamente mais tarde.");
+        }
+    }
+};
 
-export{UpdateName, UpdateEmail, UpdatePassword}
+export { UpdateName, UpdateEmail, UpdatePassword }

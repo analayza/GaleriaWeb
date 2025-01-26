@@ -11,6 +11,7 @@ export default function Menu(){
                 <NavItem href="/photos">Fotos</NavItem>
                 <NavItem href="/photos/upload">Upload Fotos</NavItem>
                 <NavItem href="/config">Configurações</NavItem>
+                <NavItem href="/">Sair</NavItem>
             </SideNav>
         </>
     )

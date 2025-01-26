@@ -24,8 +24,10 @@ export const Input = styled.input`
 
 export const StyledErrorMessage = styled.div`
     font-size: 16px;
-    color:rgb(253, 62, 14);
-    width: 110px;
+    color: #000000;
+    width: 100px;
     margin-top: 0.25rem;
+    white-space: nowrap;
+    margin-left: 10px;
 `;
 

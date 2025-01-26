@@ -3,22 +3,39 @@ import * as Yup from 'yup';
 import TextInputGlobal from '../components/TextInputGlobal.jsx';
 import { GlobalStyles } from '../style/GlobalStyle.js';
 import Menu from '../components/Menu.jsx';
-import {LabelConfigUpdate, ContainerConfig } from '../style/Config.js';
+import { LabelConfigUpdate, ContainerConfig } from '../style/Config.js';
 import { ButtonEntry } from '../style/Entry.js';
+import { UpdatePassword } from '../service/UpdateUser.js';
+import { useState, useEffect } from 'react';
 
 
-export default function UpdatePassword() {
+export default function Updatepassword() {
+
+    const [successMessage, setsuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
+
+    useEffect(() => {
+        if (successMessage || errorMessage) {
+            const timer = setTimeout(() => {
+                setsuccessMessage("");
+                setErrorMessage("");
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [successMessage, errorMessage]);
+
     return (
         <>
             <GlobalStyles />
             <Menu />
             <Formik
                 initialValues={{
-                    Oldpassword: "",
-                    Newpassword: ""
+                    oldPassword: "",
+                    newPassword: ""
                 }}
                 validationSchema={Yup.object({
-                    Oldpassword: Yup.string()
+                    oldPassword: Yup.string()
                         .min(6, 'A senha deve conter no mínimo 6 caracteres')
                         .max(20, 'A senha deve conter no máximo 20 caracteres')
                         .matches(/[A-Z]/, 'A senha deve conter pelo menos uma letra maiúscula')
@@ -26,7 +43,7 @@ export default function UpdatePassword() {
                         .matches(/[0-9]/, 'A senha deve conter pelo menos um número')
                         .matches(/[@$!%*?&]/, 'A senha deve conter pelo menos um caractere especial (@, $, !, %, *, ?, &)')
                         .required("Obrigatório"),
-                    Newpassword: Yup.string()
+                    newPassword: Yup.string()
                         .min(6, 'A senha deve conter no mínimo 6 caracteres')
                         .max(20, 'A senha deve conter no máximo 20 caracteres')
                         .matches(/[A-Z]/, 'A senha deve conter pelo menos uma letra maiúscula')
@@ -37,20 +54,31 @@ export default function UpdatePassword() {
                 })}
 
                 onSubmit={async (values, { setSubmitting }) => {
-                    await serviceRegister(values.email, values.password, values.name);
-                    setSubmitting(false);
-                    return navigate("/");
+                    try {
+                        const resul = await UpdatePassword(values.oldPassword, values.newPassword);
+                        if (resul) {
+                            setsuccessMessage("Senha Atualizada com sucesso");
+                        }
+                    } catch (error) {
+                        setErrorMessage('Senha Antiga inválida');
+                    }finally{
+                        setSubmitting(false);
+                    }
                 }}
             >
 
                 <Form>
                     <ContainerConfig>
                         <LabelConfigUpdate htmlFor="">Senha Antiga</LabelConfigUpdate>
-                        <TextInputGlobal name="Oldpassword" type="password" placeholder="Digite sua senha antiga" />
+                        <TextInputGlobal name="oldPassword" type="password" placeholder="Digite sua senha antiga" />
                         <LabelConfigUpdate htmlFor="">Senha Nova</LabelConfigUpdate>
-                        <TextInputGlobal name="Newpassword" type="password" placeholder="Digite sua senha nova"/>
+                        <TextInputGlobal name="newPassword" type="password" placeholder="Digite sua senha nova" />
 
                         <ButtonEntry type='submit'>Atualizar Senha</ButtonEntry>
+                        <div>
+                            {successMessage && <p style={{ color: "black", marginRight: '100px', marginTop: '10px' }}>{successMessage}</p>}
+                            {errorMessage && <p style={{ color: "black", marginRight: '100px', marginTop: '10px' }}>{errorMessage}</p>}
+                        </div>
                     </ContainerConfig>
                 </Form>
 

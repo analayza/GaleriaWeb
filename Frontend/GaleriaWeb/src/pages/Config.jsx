@@ -6,7 +6,7 @@ import { LabelConfig, ContainerConfig, IconButton, InputWrapper } from '../style
 import { ButtonEntry } from '../style/Entry.js';
 import { FaEdit } from 'react-icons/fa';
 import TextInputGlobal from '../components/TextInputGlobal.jsx';
-import { UpdateName, UpdateEmail, UpdatePassword } from '../service/UpdateUser.js';
+import { UpdateName, UpdateEmail } from '../service/UpdateUser.js';
 import { useState, useEffect } from 'react';
 
 export default function Config() {
