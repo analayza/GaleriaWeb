@@ -1,6 +1,12 @@
 import {SideNav, NavItem, ImageLogo, DivLogo} from '../style/Menu.js'
 
 export default function Menu(){
+
+    const logout = () => {
+        localStorage.removeItem('token');
+        console.log('excluio')
+    }
+
     return(
         <>
             <SideNav>
@@ -11,7 +17,7 @@ export default function Menu(){
                 <NavItem href="/photos">Fotos</NavItem>
                 <NavItem href="/photos/upload">Upload Fotos</NavItem>
                 <NavItem href="/config">Configurações</NavItem>
-                <NavItem href="/">Sair</NavItem>
+                <NavItem href="/" onClick={() => logout()}>Sair</NavItem>
             </SideNav>
         </>
     )
