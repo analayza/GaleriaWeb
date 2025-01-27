@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
@@ -14,6 +13,5 @@ export const GlobalStyles = createGlobalStyle`
     width: 100vw;
     background-color: #f7ebf1;
     overflow-x: hidden;
-
   }
 `;

@@ -13,7 +13,12 @@ export const GlobalStyles = createGlobalStyle`
   body {
     min-height: 100vh;
     width: 100vw;
+    place-items: center;
+    margin: 0;
+    align-items: center;
+    margin-top: 100px;
     background: linear-gradient(180deg, #683566 -10%, rgba(182, 62, 126) 100%) !important;
+    overflow: hidden;
   }
 `;
 
@@ -67,4 +72,11 @@ export const InlineContainer = styled.div`
   align-items: center; 
   gap: 8px;
   margin-top: 10px; 
+`;
+
+export const DivRegister = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
 `;

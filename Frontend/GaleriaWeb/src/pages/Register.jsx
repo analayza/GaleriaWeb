@@ -7,14 +7,14 @@ import { useNavigate } from "react-router-dom";
 
 export default function Register() {
 
-    
+
     const navigate = useNavigate();
-    
+
     return (
         <>
             <Styles.GlobalStyles></Styles.GlobalStyles>
 
-            <h1 style={{ marginBottom: '40px', color:'white' }}>Cadastro</h1>
+            <h1 style={{ marginBottom: '40px', color: 'white' }}>Cadastro</h1>
 
             <Formik initialValues={{
                 email: "",
@@ -40,7 +40,7 @@ export default function Register() {
                         .required("Obrigatório")
                 })}
 
-                onSubmit={async (values, {setSubmitting}) => {
+                onSubmit={async (values, { setSubmitting }) => {
                     await serviceRegister(values.email, values.password, values.name);
                     setSubmitting(false);
                     return navigate("/");
@@ -48,22 +48,26 @@ export default function Register() {
             >
 
                 <Form>
-                    <TextInput
-                        name="name"
-                        type="text"
-                        placeholder="Digite seu nome"
-                    />
-                    <TextInput
-                        name="email"
-                        type="email"
-                        placeholder="Digite seu email"
-                    />
-                    <TextInput
-                        name="password"
-                        type="password"
-                        placeholder="Digite sua senha"
-                    />
-                    <Styles.ButtonEntry type="submit">Cadastrar</Styles.ButtonEntry>
+                    <Styles.DivRegister>
+                        <TextInput
+                            name="name"
+                            type="text"
+                            placeholder="Digite seu nome"
+                        />
+                        <TextInput
+                            name="email"
+                            type="email"
+                            placeholder="Digite seu email"
+                        />
+                        <TextInput
+                            name="password"
+                            type="password"
+                            placeholder="Digite sua senha"
+                        />
+
+                        <Styles.ButtonEntry style={{marginLeft: -1}} type="submit">Cadastrar</Styles.ButtonEntry>
+                    </Styles.DivRegister>
+
                 </Form>
             </Formik>
         </>
